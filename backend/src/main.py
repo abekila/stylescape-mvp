@@ -28,6 +28,12 @@ app.register_blueprint(scene_bp, url_prefix='/api')
 app.register_blueprint(generate_bp, url_prefix='/api')
 app.register_blueprint(init_bp, url_prefix='/api')
 
+# Serve uploaded files from /uploads/
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    uploads_dir = os.path.join(app.static_folder, 'uploads')
+    return send_from_directory(uploads_dir, filename)
+
 # uncomment if you need to use database
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -53,4 +59,4 @@ def serve(path):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=4000, debug=True)
