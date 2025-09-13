@@ -34,6 +34,12 @@ def uploaded_file(filename):
     uploads_dir = os.path.join(app.static_folder, 'uploads')
     return send_from_directory(uploads_dir, filename)
 
+# Serve generated files from /generated/
+@app.route('/generated/<path:filename>')
+def generated_file(filename):
+    generated_dir = os.path.join(app.static_folder, 'generated')
+    return send_from_directory(generated_dir, filename)
+
 # uncomment if you need to use database
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
