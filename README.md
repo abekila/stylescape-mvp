@@ -30,6 +30,11 @@ StyleScape is a revolutionary SaaS platform that empowers e-commerce clothing br
 
 ## Getting Started
 
+### Prerequisites
+- Python 3.8+ (for backend)
+- Node.js 16+ (for frontend)
+- Git
+
 ### Backend Setup
 ```bash
 cd backend
@@ -37,6 +42,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 python src/main.py
 ```
+The backend will start on **http://localhost:4000**
 
 ### Frontend Setup
 ```bash
@@ -44,6 +50,19 @@ cd frontend
 npm install
 npm run dev
 ```
+The frontend will start on **http://localhost:3000**
+
+### Important Notes
+- The frontend uses Vite proxy to route `/api` requests to the backend on port 4000
+- Make sure both servers are running for full functionality
+- The uploads directory is automatically created for image uploads
+- File uploads are handled at `/api/products/upload`
+
+### Testing the Application
+1. Open http://localhost:3000 in your browser
+2. Click "Try Now" to start the workflow
+3. Upload a product image (PNG, JPG up to 10MB)
+4. Fill in product details and proceed through the workflow
 
 ## API Endpoints
 
