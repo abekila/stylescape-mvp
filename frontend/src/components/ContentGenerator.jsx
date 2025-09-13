@@ -233,8 +233,28 @@ const ContentGenerator = ({ productData, selectedAvatar, selectedScene, onGenera
                   <p className="text-sm text-green-800 mb-3">
                     Your {currentGeneration.content_type} has been created and is ready for download.
                   </p>
+                  
+                  {/* Image Preview */}
+                  {currentGeneration.content_type === 'image' && (
+                    <div className="mb-4">
+                      <img 
+                        src={currentGeneration.content_url} 
+                        alt="Generated fashion content"
+                        className="max-w-full h-64 object-contain mx-auto rounded-lg border border-gray-200"
+                        onError={(e) => {
+                          console.error('Failed to load generated image:', currentGeneration.content_url);
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  )}
+                  
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => window.open(currentGeneration.content_url, '_blank')}
+                    >
                       <Eye className="w-4 h-4 mr-1" />
                       Preview
                     </Button>
@@ -305,10 +325,22 @@ const ContentGenerator = ({ productData, selectedAvatar, selectedScene, onGenera
                         
                         <div className="bg-gray-100 rounded-lg aspect-video flex items-center justify-center mb-3">
                           {content.content_type === 'image' ? (
-                            <Image className="w-12 h-12 text-gray-400" />
+                            <img 
+                              src={content.content_url} 
+                              alt={`Generated content ${content.id}`}
+                              className="w-full h-full object-cover rounded-lg"
+                              onError={(e) => {
+                                console.error('Failed to load image:', content.content_url);
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
                           ) : (
                             <Video className="w-12 h-12 text-gray-400" />
                           )}
+                          <div className="hidden w-full h-full flex items-center justify-center">
+                            <Image className="w-12 h-12 text-gray-400" />
+                          </div>
                         </div>
                         
                         <p className="text-sm text-gray-600">
